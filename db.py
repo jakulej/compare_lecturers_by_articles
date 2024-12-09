@@ -1,8 +1,9 @@
 import json
+FILE_PATH='./database/articles_PWR.jsonl'
 
-def extract_data(file_path, author_id):
+def extract_data(author_id):
     extracted_data = []
-    with open(file_path, 'r', encoding='utf-8') as file:
+    with open(FILE_PATH, 'r', encoding='utf-8') as file:
         for line in file:
             json_data = json.loads(line.strip())
             if author_id not in json_data.get("author_ids", ""):
@@ -26,10 +27,9 @@ def extract_data(file_path, author_id):
             extracted_data.append(data)
     return extracted_data
 
-file_path='./database/articles_PWR.jsonl'
 
 # Example call for processing
-result = extract_data(file_path, author_id="6701511885")
+#result = extract_data(author_id="6701511885")
 
 # Print the results
-print(json.dumps(result, indent=4))
+#print(json.dumps(result, indent=4))
