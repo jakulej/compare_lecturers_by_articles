@@ -1,0 +1,23 @@
+import pandas as pd
+from statsmodels.multivariate.manova import MANOVA
+from preproces import preproces
+
+# data = pd.DataFrame({
+#     'Autor': ['A', 'A', 'A', 'B', 'B', 'B', 'C', 'C', 'C'],
+#     'Słowa_kluczowe': [15, 16, 14, 12, 11, 13, 20, 21, 19],
+#     'Sentyment': [0.8, 0.9, 0.7, -0.2, -0.1, -0.3, 0.5, 0.6, 0.4],
+#     'Cytowania': [25, 26, 24, 30, 29, 31, 15, 16, 14]
+# })
+first = preproces("6701511885")
+second = preproces("56285148000")
+
+for key in first.keys():
+    first[key].extend(second[key])
+
+
+data = pd.DataFrame.from_dict(first)
+print("TEST")
+print(data)
+
+manova = MANOVA.from_formula('citedby_count + author_count ~ author_id', data=data)
+print(manova.mv_test())
