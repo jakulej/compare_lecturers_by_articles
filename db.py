@@ -1,5 +1,5 @@
 import json
-FILE_PATH='./database/articles_PWR.jsonl'
+FILE_PATH='./db/articles_PWR.jsonl'
 
 def extract_data(author_id):
     extracted_data = []
