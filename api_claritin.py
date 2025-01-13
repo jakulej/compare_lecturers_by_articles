@@ -5,7 +5,7 @@ import numpy as np
 API_URL = 'https://services.clarin-pl.eu/api/v1/tasks/sent/'
 
 # Twój token autoryzacyjny
-API_TOKEN = ''
+API_TOKEN = 'apomAQ4KrTXns3ifJqEq9PdVTwdQokf2V3p4iwcNhdHLb8tn'
 
 # Nagłówki z tokenem
 HEADERS = {

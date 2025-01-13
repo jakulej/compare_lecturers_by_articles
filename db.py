@@ -6,7 +6,7 @@ def extract_data(author_id):
     with open(FILE_PATH, 'r', encoding='utf-8') as file:
         for line in file:
             json_data = json.loads(line.strip())
-            if author_id not in json_data.get("author_ids", ""):
+            if author_id not in json_data.get("author_ids", []):
                 continue
 
             data = {
@@ -29,7 +29,7 @@ def extract_data(author_id):
 
 
 # Example call for processing
-#result = extract_data(author_id="6701511885")
+result = extract_data(author_id="6602252130")
 
 # Print the results
-#print(json.dumps(result, indent=4))
+print(json.dumps(result, indent=4))
