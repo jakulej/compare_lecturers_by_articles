@@ -4,3 +4,4 @@ database/
 .idea/
 venv/
 GoogleNews-vectors-negative300.bin
+__pycache__
