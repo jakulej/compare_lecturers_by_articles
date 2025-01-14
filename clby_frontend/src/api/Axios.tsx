@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const baseURL: string = 'jdbc:postgresql://localhost:5432/czy_dojade';
+export const baseURL: string = '...';
 
 const axiosInstance = axios.create({
     baseURL: baseURL,

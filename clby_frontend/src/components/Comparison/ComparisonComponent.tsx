@@ -1,7 +1,9 @@
 import LecturerComponent from "../Lecturer/LecturerComponent.tsx";
 import ResultComponent from "../Result/ResultComponent.tsx";
 
-export default function Main (){
+export default function ComparisonComponent (){
+
+
     return (
         <>
             <div className="input-group mb-3">

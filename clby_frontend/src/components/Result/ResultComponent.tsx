@@ -2,10 +2,10 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import {baseURL} from "../../api/Axios";
 import {useParams} from "react-router";
-import {ResultDTO} from "../../DTOs/ResultDTO.tsx";
+import {ManovaResultDTO} from "../../DTOs/ManovaResultDTO.tsx";
 
 export default function ResultComponent() {
-    const [result, setResult] = useState<ResultDTO | null>();
+    const [result, setResult] = useState<ManovaResultDTO | null>();
     const {id} = useParams();
 
     useEffect(() => {

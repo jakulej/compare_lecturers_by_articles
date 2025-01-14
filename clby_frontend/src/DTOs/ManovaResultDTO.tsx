@@ -1,4 +1,4 @@
-export type ResultDTO = {
+export type ManovaResultDTO = {
     id: number;
     wilksLambda: number
     pillaisTrace: number;
