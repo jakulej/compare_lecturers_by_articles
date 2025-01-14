@@ -1,12 +1,12 @@
 import json
-FILE_PATH='./database/articles_PWR.jsonl'
+FILE_PATH='./db/articles_PWR.jsonl'
 
 def extract_data(author_id):
     extracted_data = []
     with open(FILE_PATH, 'r', encoding='utf-8') as file:
         for line in file:
             json_data = json.loads(line.strip())
-            if author_id not in json_data.get("author_ids", ""):
+            if author_id not in json_data.get("author_ids", []):
                 continue
 
             data = {
