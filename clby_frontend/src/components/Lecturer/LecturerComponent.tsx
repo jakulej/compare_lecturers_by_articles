@@ -19,7 +19,16 @@ export default function LecturerComponent () {
     }, []);
     return (
         <div>
-            <h1>List of Users</h1>
+            <h1>Lecturer</h1>
+            <input className="form-control" list="datalistOptions" id="exampleDataList"
+                   placeholder="Type to search..."/>
+            <datalist id="datalistOptions">
+                <option value="Jan Kowalski1"/>
+                <option value="Jan Kowalski2"/>
+                <option value="Jan Kowalski3"/>
+                <option value="Jan Kowalski4"/>
+                <option value="Jan Kowalski5"/>
+            </datalist>
             <div>
                 <table>
                     <thead>
