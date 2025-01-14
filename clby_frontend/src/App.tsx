@@ -1,22 +1,19 @@
-import { useState } from 'react'
-import './styles/App.css'
+// import { useState } from 'react'
+import './App.css'
+import Header from "./Header"
+import Footer from "./Footer"
+import Main from "./Main"
 
 function App() {
-  const [count, setCount] = useState(0)
+    // const [count, setCount] = useState(0)
 
-  return (
-    <>
-      <h1>C L B A</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-      </div>
-      <p className="read-the-docs">
-        x
-      </p>
-    </>
-  )
+    return (
+        <>
+            <Header/>
+            <Main/>
+            <Footer/>
+        </>
+    )
 }
 
 export default App

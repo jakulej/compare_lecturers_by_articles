@@ -1,0 +1,32 @@
+{
+  "Value":{
+    "Wilks' lambda":0.7050670127,
+    "Pillai's trace":0.2949329873,
+    "Hotelling-Lawley trace":0.4183049015,
+    "Roy's greatest root":0.4183049015
+  },
+  "Num DF":{
+    "Wilks' lambda":9,
+    "Pillai's trace":9.0,
+    "Hotelling-Lawley trace":9,
+    "Roy's greatest root":9
+  },
+  "Den DF":{
+    "Wilks' lambda":74.0,
+    "Pillai's trace":74.0,
+    "Hotelling-Lawley trace":74.0,
+    "Roy's greatest root":74
+  },
+  "F Value":{
+    "Wilks' lambda":3.4393958571,
+    "Pillai's trace":3.4393958571,
+    "Hotelling-Lawley trace":3.4393958571,
+    "Roy's greatest root":3.4393958571
+  },
+  "Pr > F":{
+    "Wilks' lambda":0.0013811387,
+    "Pillai's trace":0.0013811387,
+    "Hotelling-Lawley trace":0.0013811387,
+    "Roy's greatest root":0.0013811387
+  }
+}
