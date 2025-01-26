@@ -1,6 +1,6 @@
 import json
 
-AUTHOR_PATH = './database/people_PWR.jsonl'
+AUTHOR_PATH = './db/people_PWR.jsonl'
 
 def get_author_name_mapping():
     name_mapping = {}
@@ -24,9 +24,9 @@ def get_author_names_by_ids(author_ids):
     return author_names
 
 # Przykładowe dane wejściowe
-author_ids = ["6602252130", "22136569700", "22135343300", "57220342922"]  # Lista ID autorów
+# author_ids = ["6602252130", "22136569700", "22135343300", "57220342922"]  # Lista ID autorów
 
-# Pobranie imion i nazwisk autorów
-author_names = get_author_names_by_ids(author_ids)
+# # Pobranie imion i nazwisk autorów
+# author_names = get_author_names_by_ids(author_ids)
 
-print(author_names)
+# print(author_names)
