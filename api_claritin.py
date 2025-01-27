@@ -32,9 +32,7 @@ def get_vec(keywords):
     # Sprawdzanie odpowiedzi
     if response.status_code == 200:
         embeddings = response.json()[0]
-        print(embeddings)
         return(embeddings)
     else:
-        print("Błąd:", response.status_code, response.text)
         return(response.status_code)
 get_vec("boiling curves | heat transfer coefficient | low-pressure refrigerant | Nucleate boiling")
