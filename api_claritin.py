@@ -1,44 +1,40 @@
-import requests
-import numpy as np
 
-# URL API CLARIN-PL
-API_URL = 'https://services.clarin-pl.eu/api/v1/tasks/sent/'
 
-# Twój token autoryzacyjny
-API_TOKEN = ''
+def get_vec(keywords):
+    from dotenv import load_dotenv
+    import os
+    import requests
+    import numpy as np
 
-# Nagłówki z tokenem
-HEADERS = {
-    'accept': 'application/json',
-    'Content-Type': 'application/json',
-    'Authorization': f'Bearer {API_TOKEN}'
-}
+    # URL API CLARIN-PL
+    API_URL = 'https://services.clarin-pl.eu/api/v1/tasks/sent/'
 
-# Dane wejściowe do analizy podobieństwa
-data = {
-    "application": "similarity",
-    "task": "bge-m3",
-    "input": [
-        "Tomasz Bombaliński pojechał do Wrocławia.",
-        "Jan Nikodem pojechał do Choroszczy."
-    ]
-}
+    # Twój token autoryzacyjny
+    load_dotenv()
+    API_TOKEN = os.getenv("API_KEY")
+    # Nagłówki z tokenem
+    HEADERS = {
+        'accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': f'Bearer {API_TOKEN}'
+    }
 
-# Wysyłanie zapytania POST do API
-response = requests.post(API_URL, headers=HEADERS, json=data)
+    # Dane wejściowe do analizy podobieństwa
+    data = {
+        "application": "similarity",
+        "task": "bge-m3",
+        "input": [keywords]
+    }
 
-# Sprawdzanie odpowiedzi
-if response.status_code == 200:
-    embeddings = response.json()
-    # print("Otrzymane wektory osadzeń:")
-    # print(embeddings)
+    # Wysyłanie zapytania POST do API
+    response = requests.post(API_URL, headers=HEADERS, json=data)
 
-    # Konwersja wektorów na numpy arrays
-    vec1 = np.array(embeddings[0])
-    vec2 = np.array(embeddings[1])
-
-    # Obliczanie podobieństwa kosinusowego
-    cosine_similarity = np.dot(vec1, vec2) / (np.linalg.norm(vec1) * np.linalg.norm(vec2))
-    print("\nPodobieństwo kosinusowe:", cosine_similarity)
-else:
-    print("Błąd:", response.status_code, response.text)
+    # Sprawdzanie odpowiedzi
+    if response.status_code == 200:
+        embeddings = response.json()[0]
+        print(embeddings)
+        return(embeddings)
+    else:
+        print("Błąd:", response.status_code, response.text)
+        return(response.status_code)
+get_vec("boiling curves | heat transfer coefficient | low-pressure refrigerant | Nucleate boiling")
