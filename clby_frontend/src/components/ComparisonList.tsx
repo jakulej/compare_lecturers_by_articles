@@ -2,8 +2,8 @@ import 'bootstrap/dist/css/bootstrap.css';
 import {useEffect, useState} from "react";
 import {LecturerDTO} from "../DTOs/LecturerDTO.tsx";
 import axios from "axios";
-import {API_URL} from "../api/Axios.tsx";
 import ComparisonComponent from "./ComparisonComponent.tsx";
+import {API_URL} from "../api/API_Data.tsx";
 
 export default function ComparisonList() {
     const [lecturers, setLecturers] = useState<LecturerDTO[]>([]);

@@ -2,10 +2,10 @@ import {useState} from "react";
 import {ComparisonDTO} from "../DTOs/ComparisonDTO.tsx";
 import {ResultDTO} from "../DTOs/ResultDTO.tsx";
 import axios from "axios";
-import {API_URL} from "../api/Axios.tsx";
 import React from "react";
 import ResultComponent from "./ResultComponent.tsx";
 import {LecturerDTO} from "../DTOs/LecturerDTO.tsx";
+import {API_URL} from "../api/API_Data.tsx";
 
 export default function ComparisonComponent (props: { lecturers: LecturerDTO[] }) {
     const [result, setResult] = useState<ResultDTO>();
@@ -21,11 +21,11 @@ export default function ComparisonComponent (props: { lecturers: LecturerDTO[] }
     const getResult = () => {
         if (comparison !== undefined) {
             axios
-            .post(API_URL + '...', {
-                lecturer1: comparison.lecturer1,
-                lecturer2: comparison.lecturer2,
-                type: comparison.type,
-            })
+                .post(API_URL + '...', {
+                    lecturer1: comparison.lecturer1,
+                    lecturer2: comparison.lecturer2,
+                    type: comparison.type,
+                })
                 .then((response) => {
                     setResult(response.data);
                     console.log(response);
