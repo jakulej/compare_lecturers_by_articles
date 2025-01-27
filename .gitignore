@@ -6,3 +6,7 @@ venv/
 GoogleNews-vectors-negative300.bin
 __pycache__
 .env
+<<<<<<< HEAD
+=======
+.venv
+>>>>>>> dadf5f307973eca6292e206144fffd6c6a274f40

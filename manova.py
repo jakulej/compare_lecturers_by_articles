@@ -1,9 +1,14 @@
 
-def manova():
+def manova(first_id, second_id):
     
     import pandas as pd
     from statsmodels.multivariate.manova import MANOVA
     from preproces import preproces
+    #TO TEST:
+
+    #FIRST ID = "6701511885"
+    #SECOND ID = "56285148000"
+
 
 # data = pd.DataFrame({
 #     'Autor': ['A', 'A', 'A', 'B', 'B', 'B', 'C', 'C', 'C'],
@@ -13,17 +18,17 @@ def manova():
 # })
     first = preproces("6701511885")
     second = preproces("56285148000")
-
+    #print(first)
     for key in first.keys():
         first[key].extend(second[key])
 
 
     data = pd.DataFrame.from_dict(first)
 
-    manova = MANOVA.from_formula('citedby_count + author_count ~ author_id', data=data)
+    manova = MANOVA.from_formula('citedby_count + author_count + authkeywords ~ author_id', data=data)
     result = manova.mv_test()
     result_df = result['author_id']['stat'].to_json()
     #print(type(result_df))
-    #print(result_df)
+    print(result_df)
     return result_df
-manova()
+#manova("6701511885","56285148000")
