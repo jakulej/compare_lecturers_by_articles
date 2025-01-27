@@ -2,20 +2,18 @@ import matplotlib
 matplotlib.use('Agg')  # Ustawienie backendu bez GUI
 import numpy as np
 import pandas as pd
-from sklearn.feature_extraction.text import TfidfVectorizer #to niepotrzebne
 from sklearn.preprocessing import StandardScaler
 import json  # To convert data to JSON format
 from sklearn.metrics.pairwise import euclidean_distances
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.metrics.pairwise import manhattan_distances
-from scipy.spatial.distance import minkowski
 
 import preproces
 import author_mapping as am
 
 #do podminay, żeby z fronta brało
-id1 = "22135343300"
-id2 = "57220342922"
+id1 = "6701511885"
+id2 = "56285148000"
 result = preproces.preproces(id1)
 result2 = preproces.preproces(id2)
 
@@ -54,11 +52,21 @@ df_result2 = convert_to_dataframe(result2, author_label=am.get_author_names_by_i
 # Połączenie danych w jedną tabelę
 df_combined = pd.concat([df_result, df_result2], ignore_index=True)
 
+text_f_1 = text_to_features(df_result)
+text_f_2 = text_to_features(df_result2)
+
+numerical_f_1 = numerical_features(df_result)
+numerical_f_2 = numerical_features(df_result2)
+
+combined_f_1 = combine_features(text_f_1, numerical_f_1)
+combined_f_2 = combine_features(text_f_2, numerical_f_2)
+
+combined_f_data_1 = combined_f_1.tolist()
+combined_f_data_2 = combined_f_2.tolist()
 # Ekstrakcja cech
 text_features_combined = text_to_features(df_combined)
 numerical_features_combined = numerical_features(df_combined)
-#combined_features_combined = combine_features(text_features_combined, numerical_features_combined)
-combined_features_combined = numerical_features_combined
+combined_features_combined = combine_features(text_features_combined, numerical_features_combined)
 
 # Przygotowanie danych do wysłania do frontendu
 combined_features_data = combined_features_combined.tolist()  # Lista z danymi połączonymi
@@ -122,79 +130,22 @@ def compare_all_articles(df_author1, df_author2):
 
 # Zakładając, że df_result i df_result2 są DataFrame zawierającymi dane dla autorów
 avg_manhattan_similarity, avg_cosine_similarity, avg_euclidean_similarity = compare_all_articles(df_result, df_result2)
-print("avg_manhattan_similarity | avg_cosine_similarity | avg_euclidean_similarity")
-print(compare_all_articles(df_result, df_result2))
-print("\n\n")
-
-
-def compare_all_articles_apart(df_author1, df_author2):
-    similarities = {
-        "manhattan_text": [],
-        "manhattan_num": [],
-        "cosine_text": [],
-        "cosine_num": [],
-        "euclidean_text": [],
-        "euclidean_num": []
-    }
-
-    # Iteracja po wszystkich artykułach autora 1 i autora 2
-    for i in range(len(df_author1)):
-        for j in range(len(df_author2)):
-            # Wybór cech dla artykułów autora 1 i 2
-            text_features1 = text_to_features(df_author1.iloc[i:i + 1])  # cechy tekstowe dla artykułu i
-            text_features2 = text_to_features(df_author2.iloc[j:j + 1])  # cechy tekstowe dla artykułu j
-
-            # Upewniamy się, że cechy numeryczne są zgodne w wymiarach
-            numerical_features1 = numerical_features(df_author1.iloc[i:i + 1])  # cechy numeryczne dla artykułu i
-            numerical_features2 = numerical_features(df_author2.iloc[j:j + 1])  # cechy numeryczne dla artykułu j
-
-            # Obliczanie podobieństw
-            manhattan_text_sim, cosine_text_sim, euclidean_text_sim = compute_similarity_metrics(text_features1, text_features2)
-            manhattan_num_sim, cosine_num_sim, euclidean_num_sim= compute_similarity_metrics(numerical_features1, numerical_features2)
-
-            # Dodanie wyników do list
-            similarities["manhattan_text"].append(manhattan_text_sim)
-            similarities["manhattan_num"].append(manhattan_num_sim)
-            similarities["cosine_text"].append(cosine_text_sim)
-            similarities["cosine_num"].append(cosine_num_sim)
-            similarities["euclidean_text"].append(euclidean_text_sim)
-            similarities["euclidean_num"].append(euclidean_num_sim)
-
-    # Obliczenie średniego podobieństwa
-    avg_manhattan_text_similarity = np.mean(similarities["manhattan_text"]) * 100
-    avg_manhattan_num_similarity = np.mean(similarities["manhattan_num"]) * 100
-    avg_cosine_text_similarity = np.mean(similarities["cosine_text"]) * 100
-    avg_cosine_num_similarity = np.mean(similarities["cosine_num"]) * 100
-    avg_euclidean_text_similarity = np.mean(similarities["euclidean_text"]) * 100
-    avg_euclidean_num_similarity = np.mean(similarities["euclidean_num"]) * 100
-
-    return {
-        "avg_manhattan_text_similarity_percentage": avg_manhattan_text_similarity,
-        "avg_manhattan_num_similarity_percentage": avg_manhattan_num_similarity,
-        "avg_cosine_text_similarity_percentage": avg_cosine_text_similarity,
-        "avg_cosine_num_similarity_percentage": avg_cosine_num_similarity,
-        "avg_euclidean_text_similarity_percentage": avg_euclidean_text_similarity,
-        "avg_euclidean_num_similarity_percentage": avg_euclidean_num_similarity,
-    }
-
-print("apart:\n")
-print(compare_all_articles_apart(df_result, df_result2))
-print("\n\n")
-# Funkcja do obliczania podobieństwa na podstawie odległości euklidesowej
-def compute_similarity_euklides(features1, features2):
-    # Oblicz odległość euklidesową pomiędzy wektorami cech
-    distance = euclidean_distances(features1, features2)
-    # Oblicz podobieństwo jako odwrotność odległości (mniejsze odległości = większe podobieństwo)
-    similarity = 1 / (1 + distance)  # Możesz dostosować tę formułę
-    return similarity[0][0]  # Zwraca wartość podobieństwa jako pojedynczy element
+#print("avg_manhattan_similarity | avg_cosine_similarity | avg_euclidean_similarity")
+#print(compare_all_articles(df_result, df_result2))
+#print("\n\n")
 
 # Zwrócenie danych w formacie JSON
 response = {
+    "combinde_f_1": combined_f_data_1,
+    "combinde_f_2": combined_f_data_2,
     "combined_features": combined_features_data,
     "author_labels": author_labels,
-   # "author_ids": author_ids
+    "avg_manhattan_similarity": avg_manhattan_similarity,
+    "avg_cosine_similarity": avg_cosine_similarity,
+    "avg_euclidean_similarity": avg_euclidean_similarity
 }
-#print(response)
+
+print(response)
 # Zamień odpowiedź na JSON
 json_response = json.dumps(response)
 
