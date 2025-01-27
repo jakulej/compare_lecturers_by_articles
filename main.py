@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask,request
 from manova import manova
 
 
@@ -8,7 +8,7 @@ app = Flask(__name__)
 def hello_world():
     return "<p>Hello, World!</p>"
 
-@app.route("/manova")
-def get_manova():
-    manova_result = manova()
+@app.route("/manova/<first>/<second>", methods=['GET'])
+def get_manova(first, second):
+    manova_result = manova(first,second)
     return manova_result

@@ -1,4 +1,3 @@
-
 def manova(first_id, second_id):
     
     import pandas as pd
@@ -16,8 +15,8 @@ def manova(first_id, second_id):
 #     'Sentyment': [0.8, 0.9, 0.7, -0.2, -0.1, -0.3, 0.5, 0.6, 0.4],
 #     'Cytowania': [25, 26, 24, 30, 29, 31, 15, 16, 14]
 # })
-    first = preproces("6701511885")
-    second = preproces("56285148000")
+    first = preproces(first_id)
+    second = preproces(second_id)
     #print(first)
     for key in first.keys():
         first[key].extend(second[key])
@@ -31,4 +30,4 @@ def manova(first_id, second_id):
     #print(type(result_df))
     print(result_df)
     return result_df
-#manova("6701511885","56285148000")
+#manova("6602252130", "57204034434")
