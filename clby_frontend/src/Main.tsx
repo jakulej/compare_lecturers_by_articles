@@ -1,4 +1,4 @@
-import ComparisonList from "./components/Comparison/ComparisonList.tsx";
+import ComparisonList from "./components/ComparisonList.tsx";
 
 export default function Main (){
     return (
