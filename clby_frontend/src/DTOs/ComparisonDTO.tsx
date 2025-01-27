@@ -1,8 +1,5 @@
-import {LecturerDTO} from "./LecturerDTO.tsx";
-import {ManovaResultDTO} from "./ManovaResultDTO.tsx";
-
-export type ComparisonDTO = {
-    id: number;
-    lecturerlist: LecturerDTO[];
-    result: ManovaResultDTO[];
+export interface ComparisonDTO {
+    lecturer1?: string;
+    lecturer2?: string;
+    type?: string;
 }
