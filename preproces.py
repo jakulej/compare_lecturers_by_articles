@@ -16,14 +16,17 @@ def preproces(author_id):
     for article in data:
         for key in DATA_TO_ANYLSE:
             if key == 'authkeywords':
-                preprocesed_data[key].append(get_vec(article[key]))
+                if article[key] == None: 
+                    article[key] = ""
+                vector = tuple(get_vec(article[key]))
+                preprocesed_data[key].append(vector)
             else:
                 preprocesed_data[key].append(article[key])
         preprocesed_data['author_id'].append(author_id)
     return preprocesed_data
 
 #Example
-result = preproces("56285148000")
-print(result)
+#result = preproces("6701511885")
+#print(result)
 
 
