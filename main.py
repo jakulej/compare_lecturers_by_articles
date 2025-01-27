@@ -10,26 +10,11 @@ CORS(app)
 def hello_world():
     return "<p>Hello, World!</p>"
 
-@app.route("/manova")
+@app.route("/compare/manova", methods=['POST'])
 def get_manova():
+    # data = request.json
+    # lecturer1 = data.get('lecturer1')
+    # lecturer2 = data.get('lecturer2')
+
     manova_result = manova()
     return manova_result
-
-# -------------------------------------------------------------------------------
-@app.route('/compare', methods=['POST'])
-def compare_lecturers():
-    data = request.json
-    lecturer1 = data.get('lecturer1')
-    lecturer2 = data.get('lecturer2')
-
-    # Replace with your comparison logic
-    result = {
-        "lecturer1": lecturer1,
-        "lecturer2": lecturer2,
-        "comparison": "Sample comparison result"
-    }
-    return jsonify(result)
-
-
-if __name__ == "__main__":
-    app.run(debug=True)
