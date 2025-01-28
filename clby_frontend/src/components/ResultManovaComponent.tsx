@@ -17,9 +17,9 @@ export default function ResultComponent(props: { result: ResultManovaDTO}) {
                     <tbody>
                     <tr>
                         <td>Wilk's Lambda</td>
-                        <td>{props.result.Value["Wilks' lambda"]}</td>
-                        <td>{props.result["F Value"]["Wilks' lambda"]}</td>
-                        <td>{props.result["Pr > F"]["Wilks' lambda"]}</td>
+                        <td>{(Math.round((props.result.Value["Wilks' lambda"])*1000))/1000}</td>
+                        <td>{(Math.round((props.result["F Value"]["Wilks' lambda"])*1000))/1000}</td>
+                        <td>{(Math.round((props.result["Pr > F"]["Wilks' lambda"])*1000))/1000}</td>
                         {
                             props.result["Pr > F"]["Wilks' lambda"] < 0.05 ?
                                 (
@@ -37,9 +37,9 @@ export default function ResultComponent(props: { result: ResultManovaDTO}) {
                     </tr>
                     <tr>
                         <td>Pillai's Trace</td>
-                        <td>{props.result.Value["Pillai's trace"]}</td>
-                        <td>{props.result["F Value"]["Pillai's trace"]}</td>
-                        <td>{props.result["Pr > F"]["Pillai's trace"]}</td>
+                        <td>{(Math.round((props.result.Value["Pillai's trace"])*1000))/1000}</td>
+                        <td>{(Math.round((props.result["F Value"]["Pillai's trace"])*1000))/1000}</td>
+                        <td>{(Math.round((props.result["Pr > F"]["Pillai's trace"])*1000))/1000}</td>
                         {
                             props.result["Pr > F"]["Pillai's trace"] < 0.05 ?
                                 (
@@ -57,9 +57,9 @@ export default function ResultComponent(props: { result: ResultManovaDTO}) {
                     </tr>
                     <tr>
                         <td>Hotelling-Lawley Trace</td>
-                        <td>{props.result.Value["Hotelling-Lawley trace"]}</td>
-                        <td>{props.result["F Value"]["Hotelling-Lawley trace"]}</td>
-                        <td>{props.result["Pr > F"]["Hotelling-Lawley trace"]}</td>
+                        <td>{(Math.round((props.result.Value["Hotelling-Lawley trace"])*1000))/1000}</td>
+                        <td>{(Math.round((props.result["F Value"]["Hotelling-Lawley trace"])*1000))/1000}</td>
+                        <td>{(Math.round((props.result["Pr > F"]["Hotelling-Lawley trace"])*1000))/1000}</td>
                         {
                             props.result["Pr > F"]["Hotelling-Lawley trace"] < 0.05 ?
                                 (
@@ -77,9 +77,9 @@ export default function ResultComponent(props: { result: ResultManovaDTO}) {
                     </tr>
                     <tr>
                         <td>Roy's Greatest Root</td>
-                        <td>{props.result.Value["Roy's greatest root"]}</td>
-                        <td>{props.result["F Value"]["Roy's greatest root"]}</td>
-                        <td>{props.result["Pr > F"]["Roy's greatest root"]}</td>
+                        <td>{(Math.round((props.result.Value["Roy's greatest root"])*1000))/1000}</td>
+                        <td>{(Math.round((props.result["F Value"]["Roy's greatest root"])*1000))/1000}</td>
+                        <td>{(Math.round((props.result["Pr > F"]["Roy's greatest root"])*1000))/1000}</td>
                         {
                             props.result["Pr > F"]["Roy's greatest root"] < 0.05 ?
                                 (
