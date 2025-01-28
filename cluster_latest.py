@@ -12,10 +12,10 @@ import preproces
 import author_mapping as am
 
 #do podminay, żeby z fronta brało
-id1 = "6701511885"
-id2 = "56285148000"
-result = preproces.preproces(id1)
-result2 = preproces.preproces(id2)
+# id1 = "6701511885"
+# id2 = "56285148000"
+# result = preproces.preproces(id1)
+# result2 = preproces.preproces(id2)
 
 
 # Konwersja listy artykułów do DataFrame
@@ -46,32 +46,32 @@ def combine_features(text_features, numerical_features):
     return np.hstack((text_features, numerical_features))
 
 # Przetworzenie danych dla obu autorów
-df_result = convert_to_dataframe(result, author_label=am.get_author_names_by_ids([id1])[0], author_id=id1)
-df_result2 = convert_to_dataframe(result2, author_label=am.get_author_names_by_ids([id2])[0], author_id=id2)
+# df_result = convert_to_dataframe(result, author_label=am.get_author_names_by_ids([id1])[0], author_id=id1)
+# df_result2 = convert_to_dataframe(result2, author_label=am.get_author_names_by_ids([id2])[0], author_id=id2)
 
-# Połączenie danych w jedną tabelę
-df_combined = pd.concat([df_result, df_result2], ignore_index=True)
+# # Połączenie danych w jedną tabelę
+# df_combined = pd.concat([df_result, df_result2], ignore_index=True)
 
-text_f_1 = text_to_features(df_result)
-text_f_2 = text_to_features(df_result2)
+# text_f_1 = text_to_features(df_result)
+# text_f_2 = text_to_features(df_result2)
 
-numerical_f_1 = numerical_features(df_result)
-numerical_f_2 = numerical_features(df_result2)
+# numerical_f_1 = numerical_features(df_result)
+# numerical_f_2 = numerical_features(df_result2)
 
-combined_f_1 = combine_features(text_f_1, numerical_f_1)
-combined_f_2 = combine_features(text_f_2, numerical_f_2)
+# combined_f_1 = combine_features(text_f_1, numerical_f_1)
+# combined_f_2 = combine_features(text_f_2, numerical_f_2)
 
-combined_f_data_1 = combined_f_1.tolist()
-combined_f_data_2 = combined_f_2.tolist()
-# Ekstrakcja cech
-text_features_combined = text_to_features(df_combined)
-numerical_features_combined = numerical_features(df_combined)
-combined_features_combined = combine_features(text_features_combined, numerical_features_combined)
+# combined_f_data_1 = combined_f_1.tolist()
+# combined_f_data_2 = combined_f_2.tolist()
+# # Ekstrakcja cech
+# text_features_combined = text_to_features(df_combined)
+# numerical_features_combined = numerical_features(df_combined)
+# combined_features_combined = combine_features(text_features_combined, numerical_features_combined)
 
-# Przygotowanie danych do wysłania do frontendu
-combined_features_data = combined_features_combined.tolist()  # Lista z danymi połączonymi
-author_labels = df_combined['author_label'].tolist()  # Etykiety autorów
-#author_ids = df_combined['author_id'].tolist()  # Dodanie author_id do danych
+# # Przygotowanie danych do wysłania do frontendu
+# combined_features_data = combined_features_combined.tolist()  # Lista z danymi połączonymi
+# author_labels = df_combined['author_label'].tolist()  # Etykiety autorów
+# #author_ids = df_combined['author_id'].tolist()  # Dodanie author_id do danych
 
 # Funkcja do obliczania różnych miar podobieństwa
 def compute_similarity_metrics(features1, features2):
@@ -90,7 +90,14 @@ def compute_similarity_metrics(features1, features2):
     return manhattan_similarity[0][0], cosine_sim[0][0], euclidean_sim[0][0]
 
 
-def compare_all_articles(df_author1, df_author2):
+def compare_all_articles(id1, id2):
+
+
+    result = preproces.preproces(id1)
+    result2 = preproces.preproces(id2)
+
+    df_author1 = convert_to_dataframe(result, author_label=am.get_author_names_by_ids([id1])[0], author_id=id1)
+    df_author2 = convert_to_dataframe(result2, author_label=am.get_author_names_by_ids([id2])[0], author_id=id2)
     similarities = {
         "manhattan": [],
         "cosine": [],
@@ -124,29 +131,34 @@ def compare_all_articles(df_author1, df_author2):
     avg_manhattan_similarity = np.mean(similarities["manhattan"]) * 100
     avg_cosine_similarity = np.mean(similarities["cosine"]) * 100
     avg_euclidean_similarity = np.mean(similarities["euclidean"]) * 100
+    result = {
+        "manhattan_similarity": avg_manhattan_similarity,
+        "cosine_similarity": avg_cosine_similarity,
+        "euclidean_similarity": avg_euclidean_similarity,
+    }
 
-    return avg_manhattan_similarity, avg_cosine_similarity, avg_euclidean_similarity
+    return result
 
 
 # Zakładając, że df_result i df_result2 są DataFrame zawierającymi dane dla autorów
-avg_manhattan_similarity, avg_cosine_similarity, avg_euclidean_similarity = compare_all_articles(df_result, df_result2)
+#avg_manhattan_similarity, avg_cosine_similarity, avg_euclidean_similarity = compare_all_articles(df_result, df_result2)
 #print("avg_manhattan_similarity | avg_cosine_similarity | avg_euclidean_similarity")
 #print(compare_all_articles(df_result, df_result2))
 #print("\n\n")
 
-# Zwrócenie danych w formacie JSON
-response = {
-    "combinde_f_1": combined_f_data_1,
-    "combinde_f_2": combined_f_data_2,
-    "combined_features": combined_features_data,
-    "author_labels": author_labels,
-    "avg_manhattan_similarity": avg_manhattan_similarity,
-    "avg_cosine_similarity": avg_cosine_similarity,
-    "avg_euclidean_similarity": avg_euclidean_similarity
-}
+# # Zwrócenie danych w formacie JSON
+# response = {
+#     "combinde_f_1": combined_f_data_1,
+#     "combinde_f_2": combined_f_data_2,
+#     "combined_features": combined_features_data,
+#     "author_labels": author_labels,
+#     "avg_manhattan_similarity": avg_manhattan_similarity,
+#     "avg_cosine_similarity": avg_cosine_similarity,
+#     "avg_euclidean_similarity": avg_euclidean_similarity
+# }
 
-print(response)
-# Zamień odpowiedź na JSON
-json_response = json.dumps(response)
+# print(response)
+# # Zamień odpowiedź na JSON
+# json_response = json.dumps(response)
 
 # return json_response
