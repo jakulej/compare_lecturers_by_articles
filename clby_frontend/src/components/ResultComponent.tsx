@@ -1,25 +1,25 @@
-import {ResultDTO} from "../DTOs/ResultDTO.tsx";
+import {ResultManovaDTO} from "../DTOs/ResultManovaDTO.tsx";
 import ResultManovaComponent from "./ResultManovaComponent.tsx";
 import ResultAverageComponent from "./ResultAverageComponent.tsx";
-import ResultClusteringComponent from "./ResultClusteringComponent.tsx";
+import ResultClusterComponent from "./ResultClusterComponent.tsx";
 
-export default function ResultComponent(props: { result: ResultDTO, type: string }) {
+export default function ResultComponent(props: { result: ResultManovaDTO, type: string }) {
 
     return (
         <div>
             {
-                props.type === "manova_method" ? (
+                props.type === "manova" ? (
                     <ResultManovaComponent result={props.result}/>
                 ) : null
             }
             {
-                props.type === "average_method" ? (
+                props.type === "average" ? (
                     <ResultAverageComponent result={props.result}/>
                 ) : null
             }
             {
-                props.type === "data_clustering" ? (
-                    <ResultClusteringComponent result={props.result}/>
+                props.type === "cluster" ? (
+                    <ResultClusterComponent result={props.result}/>
                 ) : null
             }
         </div>

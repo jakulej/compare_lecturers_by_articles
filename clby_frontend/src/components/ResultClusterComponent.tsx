@@ -1,6 +1,6 @@
-import {ResultAverageDTO} from "../DTOs/ResultAverageDTO.tsx";
+import {ResultClusterDTO} from "../DTOs/ResultClusterDTO.tsx";
 
-export default function ResultAverageComponent(props: { result: ResultAverageDTO}) {
+export default function ResultClusterComponent(props: { result: ResultClusterDTO}) {
     if (props.result !== undefined) {
         return (
             <div className="container mt-4">

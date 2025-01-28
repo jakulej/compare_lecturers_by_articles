@@ -11,9 +11,13 @@ export default function ComparisonList() {
 
     useEffect(() => {
         axios
-            .get(API_URL + '...')
+            .get<{ [key: number]: string }>(API_URL + '/people')
             .then((response) => {
-                setLecturers(response.data);
+                const result = Object.keys(response.data).map(key => ({
+                    id: parseInt(key),
+                    name: response.data[parseInt(key)]
+                }));
+                setLecturers(result);
                 console.log(response);
             })
             .catch(error => console.log(error));
