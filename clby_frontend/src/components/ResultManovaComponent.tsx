@@ -1,41 +1,7 @@
-import {ResultDTO} from "../DTOs/ResultDTO.tsx";
+import {ResultManovaDTO} from "../DTOs/ResultManovaDTO.tsx";
 
-export default function ResultComponent(props: { result: ResultDTO}) {
-    type AdvancedStats = {
-        wilksLambda: {
-            val: number;
-            pVal: number;
-            conclusions: string;
-        };
-        pillaisTrace: {
-            val: number;
-            pVal: number;
-            conclusions: string;
-        };
-        hotellingLawleyTrace: {
-            val: number;
-            pVal: number;
-            conclusions: string;
-        };
-        roysGreatestRoot: {
-            val: number;
-            pVal: number;
-            conclusions: string;
-        };
-    };
-
-    function isAdvancedStats(data: unknown): data is AdvancedStats {
-        return (
-            typeof data === "object" &&
-            data !== null &&
-            "wilksLambda" in data &&
-            "pillaisTrace" in data &&
-            "hotellingLawleyTrace" in data &&
-            "roysGreatestRoot" in data
-        );
-    }
-
-    if (isAdvancedStats(props.result.advanced)) {
+export default function ResultComponent(props: { result: ResultManovaDTO}) {
+    if (props.result !== undefined) {
         return (
             <div className="container mt-4">
                 <table className="table table-striped table-bordered">
@@ -43,6 +9,7 @@ export default function ResultComponent(props: { result: ResultDTO}) {
                     <tr>
                         <th>Miara</th>
                         <th>Wartość</th>
+                        <th>F-Wartość</th>
                         <th>P-wartość</th>
                         <th>Wnioski</th>
                     </tr>
@@ -50,27 +17,83 @@ export default function ResultComponent(props: { result: ResultDTO}) {
                     <tbody>
                     <tr>
                         <td>Wilk's Lambda</td>
-                        <td>{props.result.advanced.wilksLambda.val}</td>
-                        <td>{props.result.advanced.wilksLambda.pVal}</td>
-                        <td>{props.result.advanced.wilksLambda.conclusions}</td>
+                        <td>{props.result.Value["Wilks' lambda"]}</td>
+                        <td>{props.result["F Value"]["Wilks' lambda"]}</td>
+                        <td>{props.result["Pr > F"]["Wilks' lambda"]}</td>
+                        {
+                            props.result["Pr > F"]["Wilks' lambda"] < 0.05 ?
+                                (
+                                    <td>
+                                        Bez istotności.
+                                    </td>
+                                )
+                                :
+                                (
+                                    <td>
+                                        Istotne różnice.
+                                    </td>
+                                )
+                        }
                     </tr>
                     <tr>
                         <td>Pillai's Trace</td>
-                        <td>{props.result.advanced.pillaisTrace.val}</td>
-                        <td>{props.result.advanced.pillaisTrace.pVal}</td>
-                        <td>{props.result.advanced.pillaisTrace.conclusions}</td>
+                        <td>{props.result.Value["Pillai's trace"]}</td>
+                        <td>{props.result["F Value"]["Pillai's trace"]}</td>
+                        <td>{props.result["Pr > F"]["Pillai's trace"]}</td>
+                        {
+                            props.result["Pr > F"]["Pillai's trace"] < 0.05 ?
+                                (
+                                    <td>
+                                        Bez istotności.
+                                    </td>
+                                )
+                                :
+                                (
+                                    <td>
+                                        Istotne różnice.
+                                    </td>
+                                )
+                        }
                     </tr>
                     <tr>
                         <td>Hotelling-Lawley Trace</td>
-                        <td>{props.result.advanced.hotellingLawleyTrace.val}</td>
-                        <td>{props.result.advanced.hotellingLawleyTrace.pVal}</td>
-                        <td>{props.result.advanced.hotellingLawleyTrace.conclusions}</td>
+                        <td>{props.result.Value["Hotelling-Lawley trace"]}</td>
+                        <td>{props.result["F Value"]["Hotelling-Lawley trace"]}</td>
+                        <td>{props.result["Pr > F"]["Hotelling-Lawley trace"]}</td>
+                        {
+                            props.result["Pr > F"]["Hotelling-Lawley trace"] < 0.05 ?
+                                (
+                                    <td>
+                                        Bez istotności.
+                                    </td>
+                                )
+                                :
+                                (
+                                    <td>
+                                        Istotne różnice.
+                                    </td>
+                                )
+                        }
                     </tr>
                     <tr>
                         <td>Roy's Greatest Root</td>
-                        <td>{props.result.advanced.roysGreatestRoot.val}</td>
-                        <td>{props.result.advanced.roysGreatestRoot.pVal}</td>
-                        <td>{props.result.advanced.roysGreatestRoot.conclusions}</td>
+                        <td>{props.result.Value["Roy's greatest root"]}</td>
+                        <td>{props.result["F Value"]["Roy's greatest root"]}</td>
+                        <td>{props.result["Pr > F"]["Roy's greatest root"]}</td>
+                        {
+                            props.result["Pr > F"]["Roy's greatest root"] < 0.05 ?
+                                (
+                                    <td>
+                                        Bez istotności.
+                                    </td>
+                                )
+                                :
+                                (
+                                    <td>
+                                        Istotne różnice.
+                                    </td>
+                                )
+                        }
                     </tr>
                     </tbody>
                 </table>
@@ -79,4 +102,4 @@ export default function ResultComponent(props: { result: ResultDTO}) {
     } else {
         return <div>Invalid data</div>;
     }
-}
+};
